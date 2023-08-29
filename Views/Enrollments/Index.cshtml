@@ -1,0 +1,46 @@
+﻿@model List<project_mvc.Models.EnrollmentViewModel>
+@{
+    ViewData["Title"] = "Enrollments";
+}
+
+<h1>Enrollments</h1>
+<a class="btn btn-primary mb-3" asp-area="" asp-controller="Enrollments" asp-action="Add"><i class="fa-solid fa-plus me-2"></i>Add</a>
+
+<div class="mb-3">
+    <form method="get" action="@Url.Action("Index")">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by Course Name or Student Name" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<a href="@Url.Action("GeneratePdf", "Enrollments")" class="btn btn-primary mb-3"><i class="fas fa-download me-2"></i>Download PDF</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("student")"><i class="fas fa-sort @(ViewBag.GetSortIcon("student"))"></i></a></th>
+            <th>Course <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("course")"><i class="fas fa-sort @(ViewBag.GetSortIcon("course"))"></i></a></th>
+            <th>Status <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("status")"><i class="fas fa-sort @(ViewBag.GetSortIcon("status"))"></i></a></th>
+            <th>Date <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("date")"><i class="fas fa-sort @(ViewBag.GetSortIcon("date"))"></i></a></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.EnrollmentID</td>
+                <td>@($"ID: {enrollment.StudentID} {enrollment.StudentName}")</td>
+                <td>@($"ID: {enrollment.CourseID} {enrollment.CourseName}")</td>
+                <td>@enrollment.Status</td>
+                <td>@enrollment.Date.ToString("dd-MM-yyyy")</td>
+                <td><a href="Enrollments/Edit/@enrollment.EnrollmentID">Edit</a></td>
+                <td><a href="Enrollments/Delete/@enrollment.EnrollmentID" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

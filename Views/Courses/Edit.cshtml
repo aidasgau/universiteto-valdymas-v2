@@ -1,0 +1,38 @@
+﻿@model project_mvc.Models.EditCourseViewModel
+
+@{
+}
+
+<h1>Edit Course</h1>
+<form method="post" action="Edit" class="mt-3">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="">Course ID</label>
+        <input type="number" class="form-control" asp-for="CourseID" readonly>
+    </div>
+    <div class="form-group">
+        <label for="">Course Name</label>
+        <input type="text" class="form-control" asp-for="CourseName">
+    </div>
+    <div class="form-group">
+        <label for="SelectedInstructorId">Instructor</label>
+        <select class="form-control" id="SelectedInstructorId" name="SelectedInstructorId" asp-for="SelectedInstructorId" asp-items="@Model.AvailableInstructors"></select>
+    </div>
+    <div class="form-group">
+        <label for="">Faculty</label>
+        <input type="text" class="form-control" asp-for="Faculty">
+    </div>
+    <div class="form-group">
+        <label for="">Start Date</label>
+        <input type="date" class="form-control" asp-for="StartDate">
+    </div>
+    <div class="form-group">
+        <label for="">End Date</label>
+        <input type="date" class="form-control" asp-for="EndDate">
+    </div>
+    <div class="form-group">
+        <label for="">Credits</label>
+        <input type="number" class="form-control" asp-for="Credits">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

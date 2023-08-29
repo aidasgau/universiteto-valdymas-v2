@@ -1,0 +1,33 @@
+﻿@model List<project_mvc.Models.EnrollmentViewModel>
+@{
+    ViewData["Title"] = "Enrollments";
+    Layout = null;
+}
+
+<h1>Enrollments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student </th>
+            <th>Course </th>
+            <th>Status </th>
+            <th>Date </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var enrollment in Model)
+        {
+            <tr>
+                <td>@enrollment.EnrollmentID</td>
+                <td>@($"ID: {enrollment.StudentID} {enrollment.StudentName}")</td>
+                <td>@($"ID: {enrollment.CourseID} {enrollment.CourseName}")</td>
+                <td>@enrollment.Status</td>
+                <td>@enrollment.Date.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,32 @@
+﻿@model List<project_mvc.Models.GradeViewModel>
+@{
+    ViewData["Title"] = "Grades";
+}
+
+<h1>Grades</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Student </th>
+            <th>Course </th>
+            <th>Grade </th>
+            <th>Date </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var grade in Model)
+        {
+            <tr>
+                <td>@grade.EnrollmentID</td>
+                <td>@($"ID: {grade.StudentID} {grade.StudentName}")</td>
+                <td>@($"ID: {grade.CourseID} {grade.CourseName}")</td>
+                <td>@grade.AssignedGrade</td>
+                <td>@grade.Date.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

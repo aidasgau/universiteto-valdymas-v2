@@ -1,0 +1,51 @@
+﻿@model List<project_mvc.Models.Domain.Course>
+
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Courses</h1>
+<a class="btn btn-primary mb-3" asp-area="" asp-controller="Courses" asp-action="Add"><i class="fa-solid fa-plus me-2"></i>Add</a>
+
+<div class="mb-3">
+    <form method="get" action="@Url.Action("Index")">
+        <div class="input-group">
+            <input type="text" name="searchCourseName" class="form-control" placeholder="Search by Course Name" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<a href="@Url.Action("GeneratePdf", "Courses")" class="btn btn-primary mb-3"><i class="fas fa-download me-2"></i>Download PDF</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Course Name<a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("course")"><i class="fas fa-sort @(ViewBag.GetSortIcon("course"))"></i></a></th>
+            <th>Instructor ID <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("instructor")"><i class="fas fa-sort @(ViewBag.GetSortIcon("instructor"))"></i></a></th>
+            <th>Faculty <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("faculty")"><i class="fas fa-sort @(ViewBag.GetSortIcon("faculty"))"></i></a></th>
+            <th>Start Date <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("startdate")"><i class="fas fa-sort @(ViewBag.GetSortIcon("startdate"))"></i></a></th>
+            <th>End Date <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("enddate")"><i class="fas fa-sort @(ViewBag.GetSortIcon("enddate"))"></i></a></th>
+            <th>Credits <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("credits")"><i class="fas fa-sort @(ViewBag.GetSortIcon("credits"))"></i></a></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.CourseID</td>
+                <td>@course.CourseName</td>
+                <td>@course.InstructorID</td>
+                <td>@course.Faculty</td>
+                <td>@course.StartDate.ToString("dd-MM-yyyy")</td>
+                <td>@course.EndDate.ToString("dd-MM-yyyy")</td>
+                <td>@course.Credits</td>
+                <td><a href="Courses/Edit/@course.CourseID">Edit</a></td>
+                <td><a href="Courses/Delete/@course.CourseID" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

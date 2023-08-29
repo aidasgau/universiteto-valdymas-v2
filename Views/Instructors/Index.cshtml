@@ -1,0 +1,47 @@
+﻿@model List<project_mvc.Models.Domain.Instructor>
+
+@{
+    ViewData["Title"] = "Instructors";
+}
+
+<h1>Instructors</h1>
+<a class="btn btn-primary mb-3" asp-area="" asp-controller="Instructors" asp-action="Add"><i class="fa-solid fa-plus me-2"></i>Add</a>
+
+<div class="mb-3">
+    <form method="get" action="@Url.Action("Index")">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by First Name, Last Name, or Full Name" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<a href="@Url.Action("GeneratePdf", "Instructors")" class="btn btn-primary mb-3"><i class="fas fa-download me-2"></i>Download PDF</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("firstname")"><i class="fas fa-sort @(ViewBag.GetSortIcon("firstname"))"></i></a></th>
+            <th>Last Name <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("lastname")"><i class="fas fa-sort @(ViewBag.GetSortIcon("lastname"))"></i></a></th>
+            <th>Email <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("email")"><i class="fas fa-sort @(ViewBag.GetSortIcon("email"))"></i></a></th>
+            <th>Faculty <a asp-action="Index" asp-route-sortOrder="@ViewBag.GetSortOrder("faculty")"><i class="fas fa-sort @(ViewBag.GetSortIcon("faculty"))"></i></a></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var instructor in Model)
+        {
+            <tr>
+                <td>@instructor.InstructorID</td>
+                <td>@instructor.FirstName</td>
+                <td>@instructor.LastName</td>
+                <td>@instructor.Email</td>
+                <td>@instructor.Faculty</td>
+                <td><a href="Instructors/Edit/@instructor.InstructorID">Edit</a></td>
+                <td><a href="Instructors/Delete/@instructor.InstructorID" onclick="return confirm('Are you sure you want to delete?')">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
